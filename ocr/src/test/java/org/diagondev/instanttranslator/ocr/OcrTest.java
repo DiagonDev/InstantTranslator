@@ -15,7 +15,7 @@ public class OcrTest {
     @Test
     public void testTextWithOcrFromResources() throws IOException {
 
-        File imageFile = new File("C:/Users/Diagon/Desktop/Progetti/InstantTranslator/images/test-ita.png");
+        File imageFile = new File("C:/Users/Diagon/Desktop/Progetti/InstantTranslator/mock/test-ita.png");
         assertNotNull(imageFile, "Immagine di test non trovata nei resources");
         BufferedImage testIta = ImageIO.read(imageFile);
 
@@ -27,7 +27,7 @@ public class OcrTest {
         assertFalse(result.isEmpty(), "OCR dovrebbe riconoscere qualche testo");
         System.out.println("Test OCR output: " + result);
 
-        imageFile = new File("C:/Users/Diagon/Desktop/Progetti/InstantTranslator/images/test-eng.png");
+        imageFile = new File("C:/Users/Diagon/Desktop/Progetti/InstantTranslator/mock/test-eng.png");
         assertNotNull(imageFile, "Immagine di test non trovata nei resources");
         BufferedImage testEng = ImageIO.read(imageFile);
         result = ocr.textWithOcr(testEng, "eng");

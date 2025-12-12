@@ -41,4 +41,9 @@ build/
 .DS_Store
 
 ### Test png ###
-.png
+test-ita.png
+test-eng.png
+test-area.png
+
+### Key di deepL ###
+translator/api-key.env
