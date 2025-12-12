@@ -1,17 +1,25 @@
 package org.diagondev.instanttranslator.screencapture;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
-public class Main {
-    public static void main(String[] args) {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            System.out.println("i = " + i);
+@Deprecated
+public class Main {
+    public static void main(String[] args) throws IOException {
+        System.out.println("Test Robot\n");
+
+        Rectangle screenRect = new Rectangle(Toolkit.getDefaultToolkit().getScreenSize());
+        BufferedImage img;
+        try {
+            Robot robot = new Robot();
+            img = robot.createScreenCapture(screenRect);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
+        ImageIO.write(img, "png", new File("test.png"));
+        System.out.println("Screenshot salvato!");
     }
 }
