@@ -29,4 +29,5 @@ public class Translator {
         TextResult result = client.translateText(text, sourceLang, targetLang);
         return result.getText();
     }
+
 }

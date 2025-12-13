@@ -4,6 +4,7 @@ module org.diagondev.instanttranslator.ui {
 
     requires java.desktop;
     requires screen.capture;
+    requires orchestrator;
 
     // In sostanza apro il modulo a javafx.fxml per permettergli di vedere le classi
     opens org.diagondev.instanttranslator.ui to javafx.fxml;

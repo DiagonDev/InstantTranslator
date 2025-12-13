@@ -5,14 +5,11 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextArea;
 import javafx.scene.input.KeyEvent;
-import org.diagondev.instanttranslator.screencapture.ScreenCapture;
-
-import javax.imageio.ImageIO;
+import org.diagondev.instanttranslator.orchestrator.TranslationService;
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
+
 
 public class ScreenshotController {
 
@@ -24,6 +21,15 @@ public class ScreenshotController {
 
     @FXML
     private TextField text_hotkey;
+
+    @FXML
+    private TextField text_from;
+
+    @FXML
+    private TextField text_to;
+
+    @FXML
+    private TextArea text_translated;
 
     @FXML
     private void initialize() {
@@ -38,23 +44,18 @@ public class ScreenshotController {
     public void screenshot(ActionEvent actionEvent) {
         AreaSelectorOverlay selectorOverlay = new AreaSelectorOverlay();
         selectorOverlay.startSelection(area -> {
-            java.awt.Rectangle awtRect = new java.awt.Rectangle(
-                    (int) area.getX(),
-                    (int) area.getY(),
-                    (int) area.getWidth(),
-                    (int) area.getHeight()
-            );
-            // Thread separato per non bloccare la UI
+
+            // separated thread for UI
             new Thread(() -> {
-                ScreenCapture screenCapture = new ScreenCapture();
-                try {
-                    BufferedImage img = screenCapture.captureArea(awtRect);
-                    File outputFile = new File("screenshot.png");
-                    ImageIO.write(img, "png", outputFile);
-                    System.out.println("Screenshot salvato in: " + outputFile.getAbsolutePath());
-                } catch (AWTException | IOException e) {
-                    e.printStackTrace();
-                }
+                Rectangle awtRect = new Rectangle(
+                        (int) area.getX(),
+                        (int) area.getY(),
+                        (int) area.getWidth(),
+                        (int) area.getHeight()
+                );
+                TranslationService translationService = new TranslationService();
+                System.out.println(text_from.getText());
+                text_translated.setText(translationService.translateArea(awtRect, text_from.getText(),  text_to.getText()));
             }).start();
         });
     }

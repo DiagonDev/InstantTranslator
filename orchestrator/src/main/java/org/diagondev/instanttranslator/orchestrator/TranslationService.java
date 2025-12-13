@@ -11,7 +11,7 @@ public class TranslationService {
     Ocr ocr;
     Translator translator;
 
-    TranslationService() {
+    public TranslationService() {
         this.screenCapture = new ScreenCapture();
         this.ocr = new Ocr();
         try {
@@ -24,10 +24,8 @@ public class TranslationService {
         String result = "";
         try {
             BufferedImage image = screenCapture.captureArea(rectangle);
-            String ocrResult = ocr.textWithOcr(image, sourceLanguage);
+            String ocrResult = ocr.textWithOcr(image, "eng");
             result = translator.translateString(ocrResult, sourceLanguage, targetLanguage);
-        } catch (AWTException e) {
-            throw new RuntimeException(e);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
