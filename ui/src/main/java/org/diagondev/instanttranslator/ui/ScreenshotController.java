@@ -38,11 +38,17 @@ public class ScreenshotController {
     public void screenshot(ActionEvent actionEvent) {
         AreaSelectorOverlay selectorOverlay = new AreaSelectorOverlay();
         selectorOverlay.startSelection(area -> {
+            java.awt.Rectangle awtRect = new java.awt.Rectangle(
+                    (int) area.getX(),
+                    (int) area.getY(),
+                    (int) area.getWidth(),
+                    (int) area.getHeight()
+            );
             // Thread separato per non bloccare la UI
             new Thread(() -> {
                 ScreenCapture screenCapture = new ScreenCapture();
                 try {
-                    BufferedImage img = screenCapture.captureArea(area);
+                    BufferedImage img = screenCapture.captureArea(awtRect);
                     File outputFile = new File("screenshot.png");
                     ImageIO.write(img, "png", outputFile);
                     System.out.println("Screenshot salvato in: " + outputFile.getAbsolutePath());
