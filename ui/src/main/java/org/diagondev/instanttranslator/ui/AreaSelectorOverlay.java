@@ -1,5 +1,6 @@
 package org.diagondev.instanttranslator.ui;
 
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
