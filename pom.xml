@@ -13,6 +13,7 @@
         <module>ocr</module>
         <module>translator</module>
         <module>ui</module>
+        <module>orchestrator</module>
     </modules>
 
     <properties>

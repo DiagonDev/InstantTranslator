@@ -3,6 +3,8 @@
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$/ocr/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/ocr/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/orchestrator/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/orchestrator/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/screen-capture/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/screen-capture/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/screencapture/src/main/java" charset="UTF-8" />
