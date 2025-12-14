@@ -3,37 +3,37 @@ package org.diagondev.instanttranslator.translator;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.*;
 
-class TranslatorTest {
+class TranslatorClientTest {
 
-    static Translator translator;
+    static TranslatorClient translatorClient;
 
-    final String textIta = "Il veloce gatto marrone salta sopra il cane pigro.\n" +
-            "questa frase contiene tutte le lettere dell’alfabeto italiano.\n" +
-            "Il software OCR dovrebbe riuscire a riconoscere correttamente questo testo.";
+    final String textIta = """
+            Il veloce gatto marrone salta sopra il cane pigro.
+            questa frase contiene tutte le lettere dell’alfabeto italiano.
+            Il software OCR dovrebbe riuscire a riconoscere correttamente questo testo.""";
 
-    final String textEng = "The quick brown fox jumps over the lazy dog.\n" +
-            "This sentence contains every letter of the English alphabet.\n" +
-            "OCR software should be able to recognize this text clearly.";
+    final String textEng = """
+            The quick brown fox jumps over the lazy dog.
+            This sentence contains every letter of the English alphabet.
+            OCR software should be able to recognize this text clearly.""";
 
     @BeforeAll
     static void setup() throws Exception {
-        translator = new Translator(); // Assicurati che .env contenga DEEPL_API_KEY
+        translatorClient = new TranslatorClient(); // Assicurati che .env contenga DEEPL_API_KEY
     }
 
     @Test
     void testTranslateString() throws Exception {
 
-            String result = translator.translateString(textEng, "EN", "IT");
+            String result = translatorClient.translateString(textEng, "EN", "IT");
 
         assertNotNull(result, "La traduzione non dovrebbe essere null");
         assertFalse(result.isEmpty(), "La traduzione non dovrebbe essere vuota");
         System.out.println("Traduzione da Inglese a italiano: " + result);
 
-        result = translator.translateString(textIta, "IT", "EN-US");
+        result = translatorClient.translateString(textIta, "IT", "EN-US");
         assertNotNull(result, "La traduzione non dovrebbe essere null");
         assertFalse(result.isEmpty(), "La traduzione non dovrebbe essere vuota");
         System.out.println("Traduzione da italiano a inglese: " + result);
