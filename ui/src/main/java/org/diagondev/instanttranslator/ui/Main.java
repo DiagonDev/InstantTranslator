@@ -1,6 +1,7 @@
 package org.diagondev.instanttranslator.ui;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -18,6 +19,13 @@ public class  Main extends Application {
         stage.setTitle("InstantTranslator");
         stage.setScene(scene);
         stage.show();
+        ScreenshotController controller = loader.getController();
+
+        stage.setOnCloseRequest(event -> {
+            controller.shutdown();
+            Platform.exit();
+            System.exit(0);
+        });
     }
 
     public static void main(String[] args) {

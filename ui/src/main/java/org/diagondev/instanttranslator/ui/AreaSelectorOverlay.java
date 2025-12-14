@@ -15,13 +15,14 @@ public class AreaSelectorOverlay {
 
     private double startX, startY;
     private Rectangle selectionRect;
+    Stage overlay;
 
     public interface AreaSelectedListener {
         void onAreaSelected(Rectangle area);
     }
 
     public void startSelection(AreaSelectedListener listener) {
-        Stage overlay = new Stage();
+        overlay = new Stage();
         overlay.initStyle(StageStyle.TRANSPARENT);
         overlay.setAlwaysOnTop(true);
 
@@ -81,5 +82,9 @@ public class AreaSelectorOverlay {
         );
 
         listener.onAreaSelected(awtRect);
+    }
+
+    public void close() {
+        overlay.close();
     }
 }

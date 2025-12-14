@@ -44,6 +44,11 @@ public class ScreenshotController implements OrchestratorListener {
 
     private OrchestratorService orchestratorService;
 
+    private AreaHighlightOverlay highlightOverlay;
+
+    private TextOverlay textOverlay;
+
+
     @FXML
     private void initialize() {
         combo_from.getItems().addAll("EN", "IT");
@@ -54,7 +59,8 @@ public class ScreenshotController implements OrchestratorListener {
         selectorOverlay = new AreaSelectorOverlay();
         orchestratorService = new OrchestratorService();
         orchestratorService.setListener(this);
-
+        highlightOverlay = new AreaHighlightOverlay();
+        textOverlay = new TextOverlay();
     }
 
     public void registerMacro(KeyEvent keyEvent) {
@@ -71,7 +77,25 @@ public class ScreenshotController implements OrchestratorListener {
     }
     public void captureArea(ActionEvent actionEvent) {
         selectorOverlay.startSelection(area -> {
+
+            if (textOverlay == null) {
+                textOverlay = new TextOverlay();
+            }
+
+            textOverlay.setBounds(
+                    area.getX(),
+                    area.getY(),
+                    area.getWidth(),
+                    area.getHeight()
+            );
+
+            textOverlay.show();
+
             Rectangle awtRect = toAwtRect(area);
+
+            Platform.runLater(() ->
+                    highlightOverlay.show(awtRect)
+            );
             orchestratorService.startContinuousTranslation(awtRect, combo_from.getValue(),  combo_to.getValue());
         });
 
@@ -79,9 +103,13 @@ public class ScreenshotController implements OrchestratorListener {
 
     @Override
     public void onNewTranslation(String translatedText) {
-        Platform.runLater(() ->
-                text_translated.setText(translatedText)
-        );
+        Platform.runLater(() -> {
+            text_translated.setText(translatedText);
+
+            if (textOverlay != null) {
+                textOverlay.updateText(translatedText);
+            }
+        });
     }
 
     @Override
@@ -98,4 +126,23 @@ public class ScreenshotController implements OrchestratorListener {
                 (int) area.getWidth(),
                 (int) area.getHeight());
     }
+
+    public void shutdown() {
+        if (orchestratorService != null) {
+            orchestratorService.stop();
+        }
+
+        if (selectorOverlay != null) {
+            selectorOverlay.close();
+        }
+
+        if (highlightOverlay != null) {
+            highlightOverlay.close();
+        }
+
+        if (textOverlay != null) {
+            textOverlay.close();
+        }
+    }
+
 }
