@@ -38,7 +38,12 @@ public class TextOverlay {
         stage.setScene(scene);
     }
 
-    public void show() {
+    public void show(java.awt.Rectangle area) {
+        stage.setX(area.x);
+        stage.setY(area.y);
+        stage.setWidth(area.width);
+        stage.setHeight(area.height);
+
         if (!stage.isShowing()) {
             stage.show();
         }

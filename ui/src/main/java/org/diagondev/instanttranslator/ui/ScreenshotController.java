@@ -77,25 +77,12 @@ public class ScreenshotController implements OrchestratorListener {
     }
     public void captureArea(ActionEvent actionEvent) {
         selectorOverlay.startSelection(area -> {
-
-            if (textOverlay == null) {
-                textOverlay = new TextOverlay();
-            }
-
-            textOverlay.setBounds(
-                    area.getX(),
-                    area.getY(),
-                    area.getWidth(),
-                    area.getHeight()
-            );
-
-            textOverlay.show();
-
             Rectangle awtRect = toAwtRect(area);
 
-            Platform.runLater(() ->
-                    highlightOverlay.show(awtRect)
-            );
+            textOverlay.show(awtRect);
+
+            highlightOverlay.show(awtRect);
+
             orchestratorService.startContinuousTranslation(awtRect, combo_from.getValue(),  combo_to.getValue());
         });
 
