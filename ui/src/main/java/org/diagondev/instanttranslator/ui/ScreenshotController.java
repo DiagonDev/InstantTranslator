@@ -79,7 +79,7 @@ public class ScreenshotController implements OrchestratorListener {
         selectorOverlay.startSelection(area -> {
             Rectangle awtRect = toAwtRect(area);
 
-            textOverlay.show(awtRect);
+            textOverlay.show();
 
             highlightOverlay.show(awtRect);
 
